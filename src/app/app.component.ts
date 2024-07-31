@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from './services/Auth/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'OnlineOrderSystemApp';
-  constructor(private authService: AuthService, private router: Router) {}
+  showNavbar: boolean = true;
 
-  isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
+  constructor(private router: Router) {
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
-  logout(): void {
-    this.authService.logout();
+  ngOnInit(): void {
     this.router.navigate(['/login']);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar = !(event.url === '/login' || event.url === '/register');
+      }
+    });
   }
 }

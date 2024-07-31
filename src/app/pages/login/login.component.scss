@@ -1,26 +1,101 @@
+/* Container for the entire page */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #e6f7ff; /* Calmer light blue background */
+  padding: 20px;
+}
+
+/* Styling for the welcome message */
+.welcome-message {
+  color: #0099cc; /* Calmer blue for the welcome message */
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Container for the login form */
 .login-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .error-message {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .btn-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .btn-link:hover {
-    text-decoration: underline;
-  }
-  
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  width: 100%;
+  max-width: 400px;
+  text-align: center; /* Centering the contents */
+}
+
+/* Styling for form groups */
+.form-group {
+  margin-bottom: 20px;
+  text-align: center; /* Center labels and inputs */
+}
+
+/* Styling for labels */
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333333; /* Darker color for better contrast */
+}
+
+/* Styling for input fields */
+input {
+  width: calc(100% - 20px); /* Ensure full width minus padding */
+  padding: 10px;
+  border: 1px solid #cccccc; /* Softer border color */
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin: 0 auto; /* Center the input fields */
+  display: block;
+}
+
+/* Focus state for input fields */
+input:focus {
+  outline: none;
+  border-color: #66ccff; /* Softer focus color */
+  box-shadow: 0 0 5px rgba(102, 204, 255, 0.5);
+}
+
+/* Styling for the login button */
+.btn-primary {
+  background-color: #0099cc;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin: 20px auto 0; /* Centering and spacing */
+  display: block;
+  width: fit-content;
+}
+
+/* Hover state for the login button */
+.btn-primary:hover {
+  background-color: #0077aa;
+}
+
+/* Styling for the link button */
+.btn-link {
+  color: #0099cc;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Hover state for the link button */
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* Styling for the error message */
+.error-message {
+  color: #cc0000; /* Softer red color */
+  margin-top: 10px;
+}

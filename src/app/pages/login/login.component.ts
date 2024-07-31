@@ -20,7 +20,7 @@ export class LoginComponent {
   login(): void {
     this.authService.login(this.model).subscribe(
       () => {
-        this.router.navigate(['/products']); // Navigate to the products page after successful login
+        this.router.navigate(['/home']);
       },
       (error) => {
         this.errorMessage = 'Invalid email or password. Please try again.';

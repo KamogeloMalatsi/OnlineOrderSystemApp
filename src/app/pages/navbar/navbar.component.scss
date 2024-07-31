@@ -1,0 +1,66 @@
+/* Styling for the custom navbar */
+.custom-navbar {
+  background-color: #003366; /* Darker background color */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif; /* Consistent font */
+}
+
+/* Styling for the brand name */
+.custom-navbar .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+/* Adding margin for the brand icon */
+.custom-navbar .navbar-brand i {
+  margin-right: 10px;
+}
+
+/* Styling for the nav items */
+.custom-navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+  list-style-type: none; /* Remove list dots */
+  padding: 0;
+  margin: 0;
+}
+
+/* Styling for the nav links */
+.custom-navbar .nav-link {
+  color: white;
+  font-size: 1rem;
+  margin-right: 30px; /* Increased spacing between items */
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+  text-decoration: none; /* Remove underline from links */
+}
+
+/* Adding margin for the icons */
+.custom-navbar .nav-link i {
+  margin-right: 5px;
+}
+
+/* Hover state for nav links */
+.custom-navbar .nav-link:hover {
+  color: #66ccff; /* Lighter on hover */
+}
+
+/* Styling for active links */
+.custom-navbar .nav-item.active .nav-link {
+  font-weight: bold;
+  color: #66ccff; /* Lighter blue for active state */
+}
+
+/* Additional spacing for navbar items */
+.nav-item {
+  margin-left: 20px; /* Adjusted spacing between items */
+}

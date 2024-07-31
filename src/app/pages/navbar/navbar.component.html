@@ -1,0 +1,34 @@
+<nav class="custom-navbar">
+  <div class="navbar-brand">
+    <i class='bx bxl-yourappname-icon'></i> KF Tech
+  </div>
+  <ul class="navbar-nav">
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/home">
+        <i class='bx bx-home'></i> Home
+      </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/cart">
+        <i class='bx bx-cart'></i> Cart ({{ cartItemCount }})
+      </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/order">
+        <i class='bx bx-box'></i> Orders
+      </a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home">
+        <i class='bx bx-user'></i> Welcome, {{ username }}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()">
+        <i class='bx bx-log-out'></i> Logout
+      </a>
+    </li>
+  </ul>
+</nav>

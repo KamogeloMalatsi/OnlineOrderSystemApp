@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="search-bar">
+    <input [(ngModel)]="searchTerm" placeholder="Search for products..." class="form-control search-input" />
+    <button (click)="searchProducts()" class="btn btn-primary">Search</button>
+    <button (click)="clearSearch()" class="btn btn-secondary">Clear</button>
+  </div>
+
+  <div class="product-list" *ngIf="products.length > 0; else noProducts">
+    <div *ngFor="let product of products" class="product-card">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-text">Price: R{{ product.price }}</p>
+          <button (click)="addToCart(product)" class="btn btn-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noProducts>
+    <div class="alert alert-warning">
+      No products found.
+    </div>
+  </ng-template>
+</div>
+

@@ -1,38 +1,73 @@
-<div class="register-container">
-    <h2>Register</h2>
-    <form (ngSubmit)="register()">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" [(ngModel)]="model.username" name="username" required />
-      </div>
-      <div class="form-group">
-        <label for="userSurname">Surname:</label>
-        <input type="text" id="userSurname" [(ngModel)]="model.userSurname" name="userSurname" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" [(ngModel)]="model.email" name="email" required />
-      </div>
-      <div class="form-group">
-        <label for="confirmEmail">Confirm Email:</label>
-        <input type="email" id="confirmEmail" [(ngModel)]="model.confirmEmail" name="confirmEmail" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" [(ngModel)]="model.password" name="password" required />
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" [(ngModel)]="model.confirmPassword" name="confirmPassword" required />
-      </div>
-      <div class="form-group">
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" [(ngModel)]="model.phoneNumber" name="phoneNumber" required />
-      </div>
-      <div class="form-group">
-        <button type="submit">Register</button>
-      </div>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    </form>
+<!-- registration.component.html -->
+<div class="login-page">
+    <h1 class="welcome-message">Hello! Welcome to the KF Online Store</h1>
+    <div class="register-container">
+      <h2>Register</h2>
+      <form [formGroup]="registrationForm" (ngSubmit)="register()" autocomplete="off">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input id="username" formControlName="username" placeholder="Please enter your username" />
+            <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="error-message">
+              Username is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="userSurname">Surname:</label>
+            <input id="userSurname" formControlName="userSurname" placeholder="Please enter your surname" />
+            <div *ngIf="registrationForm.get('userSurname')?.invalid && registrationForm.get('userSurname')?.touched" class="error-message">
+              Surname is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" formControlName="email" placeholder="Please enter your email" />
+            <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
+              A valid email is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmEmail">Confirm Email:</label>
+            <input id="confirmEmail" formControlName="confirmEmail" placeholder="Please confirm your email" />
+            <div *ngIf="registrationForm.hasError('emailMismatch') && registrationForm.get('confirmEmail')?.touched" class="error-message">
+              Emails do not match.
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input id="password" type="password" formControlName="password" placeholder="Please enter your password" />
+            <small>Password must be at least 6 characters long and include an uppercase letter, a lowercase letter, and a digit.</small>
+            <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
+              Password does not meet requirements.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Please confirm your password" />
+            <div *ngIf="registrationForm.hasError('passwordMismatch') && registrationForm.get('confirmPassword')?.touched" class="error-message">
+              Passwords do not match.
+            </div>
+          </div>
+        </div>
+        <div class="form-row full-width">
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input id="phoneNumber" formControlName="phoneNumber" placeholder="Please enter your phone number" />
+            <div *ngIf="registrationForm.get('phoneNumber')?.invalid && registrationForm.get('phoneNumber')?.touched" class="error-message">
+              Phone number is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Register</button>
+        </div>
+        <p class="login-link">Already have an account? <a routerLink="/login" class="btn btn-link">Login here</a></p>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </form>
+    </div>
   </div>
   

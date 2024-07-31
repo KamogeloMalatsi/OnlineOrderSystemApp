@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LoginViewModel } from '../../models/UserModel';
-import { RegistrationData } from '../../models/UserModel';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { LoginViewModel, RegistrationData } from '../../models/UserModel';
 import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
@@ -18,18 +17,28 @@ interface DecodedToken {
 export class AuthService {
   private apiUrl = 'https://localhost:7020/api/Authentication';
   private tokenKey = 'authToken';
+  private userLoggedInSubject = new BehaviorSubject<void>(undefined);
+  userLoggedIn$ = this.userLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   register(data: RegistrationData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/RegisterClient`, data);
+    return this.http.post(`${this.apiUrl}/RegisterClient`, data, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   login(model: LoginViewModel): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Login`, model).pipe(
+    return this.http.post(`${this.apiUrl}/Login`, model, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
       tap((res: any) => {
-        localStorage.setItem(this.tokenKey, res.token);
-      })
+        this.storeToken(res.token);
+        this.notifyUserLoggedIn();
+      }),
+      catchError(this.handleError)
     );
   }
 
@@ -62,5 +71,22 @@ export class AuthService {
     const decodedToken = this.getDecodedToken();
     return decodedToken ? { email: decodedToken.email, username: decodedToken.sub } : null;
   }
-}
 
+  private storeToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(error.message || 'Server error');
+  }
+
+  getClientEmail(): string | null {
+    const decodedToken = this.getDecodedToken();
+    return decodedToken ? decodedToken.email : null;
+  }
+
+  notifyUserLoggedIn(): void {
+    this.userLoggedInSubject.next();
+  }
+}
